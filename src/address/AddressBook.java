@@ -27,6 +27,7 @@ public class AddressBook {
     }
 
     public void add(AddressEntry entry) {
+        entry.setId(addressEntryList.size());
         addressEntryList.add(entry);
     }
 

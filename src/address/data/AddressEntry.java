@@ -5,27 +5,29 @@ package address.data;
  * Overrides a toString() method that prints out all the data in an entry
  */
 public class AddressEntry {
+    private Integer id;
     private String firstName;
     private String lastName;
     private String street;
     private String city;
     private String state;
-    private int zip;
+    private Integer zip;
     private String phone;
     private String email;
 
     // Constructors
     public AddressEntry() {}
 
-    public AddressEntry(String fName, String lName, String str, String cit, String sta, int z, String ph, String em) {
-        firstName = fName;
-        lastName = lName;
-        street = str;
-        city = cit;
-        state = sta;
-        zip = z;
-        phone = ph;
-        email = em;
+    public AddressEntry(int id, String firstName, String lastName, String street, String city, String state, int zip, String phone, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.phone = phone;
+        this.email = email;
     }
 
     @Override
@@ -35,6 +37,14 @@ public class AddressEntry {
                 city + ", " + state + " " + zip + "\n" +
                 email + "\n" +
                 phone + "\n";
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public void setFirstName(String firstName) {

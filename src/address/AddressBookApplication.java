@@ -109,7 +109,7 @@ public class AddressBookApplication {
         String street;
         String city;
         String state;
-        int zip;
+        Integer zip;
         String phone;
         String email;
 
