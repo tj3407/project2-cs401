@@ -65,14 +65,17 @@ public class MainWindow {
         JScrollPane scrollPane = new JScrollPane(this.addressEntryJList);
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
         JButton btnRemove = new JButton("Remove");
-        btnRemove.addActionListener(new ActionListener() {  //BASED ON event from hitting remove button,
+        JButton btnAdd = new JButton("Add");
+
+        btnRemove.addActionListener(new ActionListener() {
+            //BASED ON event from hitting remove button,
             //Remove item from our JList's ListModel
 
             public void actionPerformed(ActionEvent arg0) {
                 int index = addressEntryJList.getSelectedIndex();
 
                 //something is selected otherwise do nothing
-                if(index != -1) {
+                if (index != -1) {
                     //retrieve the DefaultListModel associated
                     // with our JList and remove from it the AddressEntry at this index
                     ((DefaultListModel<AddressEntry>) (addressEntryJList.getModel())).remove(index);
@@ -83,6 +86,25 @@ public class MainWindow {
             }
         });
 
-        scrollPane.setColumnHeaderView(btnRemove);
+        btnAdd.addActionListener(new ActionListener() {
+            //BASED ON event from hitting add button,
+            //Add item to our JList's ListModel
+
+            public void actionPerformed(ActionEvent arg0) {
+                int index = addressEntryJList.getSelectedIndex();
+
+                //something is selected otherwise do nothing
+                if (index != -1) {
+                    //retrieve the DefaultListModel associated
+                    // with our JList and remove from it the AddressEntry at this index
+                    ((DefaultListModel<AddressEntry>) (addressEntryJList.getModel())).remove(index);
+
+                    // NOTE in your project 2 you will also remove it from your AddressBook.addressEntryList
+                    // AND ALSO remove it from the associated database table
+                }
+            }
+        });
+
+        scrollPane.setColumnHeaderView(btnAdd);
     }
 }

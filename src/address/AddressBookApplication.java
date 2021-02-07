@@ -30,15 +30,16 @@ public class AddressBookApplication {
                 case 'd':
                     ab.list();
                     break;
-                case 'e':
-                    System.out.println("Goodbye!");
-                    break;
                 default:
                     System.out.println("Invalid selection. Please try again.");
                     break;
             }
 
             selection = Menu.prompt_Menu();
+        }
+
+        if (selection == 'e') {
+            System.out.println("Goodbye!");
         }
     }
 
@@ -98,12 +99,12 @@ public class AddressBookApplication {
         if (isRemove == 'y') {
             AddressEntry contact = result.get(selection-1);
             ab.remove(contact);
-            System.out.println("You have successfully removed the " + contact.getFirstName() + " " + contact.getLastName() + " contact");
+            System.out.println("You have successfully removed the " + contact.getName() + " contact");
         }
     }
 
     private static void addEntry(AddressBook ab) {
-        AddressEntry entry = new AddressEntry();
+        AddressEntry entry;
         String firstName;
         String lastName;
         String street;
@@ -112,30 +113,25 @@ public class AddressBookApplication {
         Integer zip;
         String phone;
         String email;
+        int id = ab.getAddressEntryList().size();
 
         firstName = Menu.prompt_FirstName();
-        entry.setFirstName(firstName);
 
         lastName = Menu.prompt_LastName();
-        entry.setLastName(lastName);
 
         street = Menu.prompt_Street();
-        entry.setStreet(street);
 
         city = Menu.prompt_City();
-        entry.setCity(city);
 
         state = Menu.prompt_State();
-        entry.setState(state);
 
         zip = Menu.prompt_Zip();
-        entry.setZip(zip);
 
         phone = Menu.prompt_Telephone();
-        entry.setPhone(phone);
 
         email = Menu.prompt_Email();
-        entry.setEmail(email);
+
+        entry = new AddressEntry(id, firstName, lastName, street, city, state, zip, phone, email);
 
         ab.add(entry);
 

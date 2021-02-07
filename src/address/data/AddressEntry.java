@@ -6,35 +6,32 @@ package address.data;
  */
 public class AddressEntry {
     private Integer id;
-    private String firstName;
-    private String lastName;
-    private String street;
-    private String city;
-    private String state;
-    private Integer zip;
     private String phone;
     private String email;
+    private Name name;
+    private Address address;
 
     // Constructors
-    public AddressEntry() {}
+    public AddressEntry(int id, Name name, Address address, String email, String phone) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+    }
 
     public AddressEntry(int id, String firstName, String lastName, String street, String city, String state, int zip, String phone, String email) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.street = street;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
+        this.name = new Name(firstName, lastName);
+        this.address = new Address(street, city, state, zip);
         this.phone = phone;
         this.email = email;
     }
 
     @Override
     public String toString() {
-        return firstName + " " + lastName + "\n" +
-                street + "\n" +
-                city + ", " + state + " " + zip + "\n" +
+        return name.toString() +
+                address.toString() +
                 email + "\n" +
                 phone + "\n";
     }
@@ -45,54 +42,6 @@ public class AddressEntry {
 
     public Integer getId() {
         return id;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setZip(int zip) {
-        this.zip = zip;
-    }
-
-    public int getZip() {
-        return zip;
     }
 
     public void setPhone(String phone) {
@@ -109,6 +58,10 @@ public class AddressEntry {
 
     public String getEmail() {
         return email;
+    }
+
+    public Name getName() {
+        return name;
     }
 }
 

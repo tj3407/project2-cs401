@@ -16,9 +16,6 @@ public class AddressBook {
     private ArrayList<AddressEntry> addressEntryList = new ArrayList<>();
 
     public void list() {
-        // Optional sorting of ArrayList by First Name
-        addressEntryList.sort(Comparator.comparing(AddressEntry::getFirstName));
-
         // Iterate through AddressEntry and print out the data
         for (int i = 1; i <= addressEntryList.size(); i++) {
             System.out.print(i + ": ");
@@ -36,11 +33,15 @@ public class AddressBook {
     }
 
     public ArrayList<AddressEntry> find(String startOf_lastName) {
-        Stream<AddressEntry> stream = addressEntryList.stream().filter(entry -> entry.getLastName().contains(startOf_lastName));
+        Stream<AddressEntry> stream = addressEntryList.stream().filter(entry -> entry.getName().getLastName().contains(startOf_lastName));
         ArrayList<AddressEntry> result = new ArrayList<>();
 
         stream.forEach(s -> result.add(s));
         return result;
+    }
+
+    public ArrayList<AddressEntry> getAddressEntryList() {
+        return addressEntryList;
     }
 }
 
