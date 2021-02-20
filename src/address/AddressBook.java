@@ -11,6 +11,8 @@ import java.util.stream.Stream;
  * Holds a collection of objects of the class AddressEntry
  * Contains an add method to add new AddressEntry
  * Contains an list method to iterate through an ArrayList of AddressEntry
+ *
+ * @author Tey Jon Sornet
  */
 public class AddressBook {
     private ArrayList<AddressEntry> addressEntryList = new ArrayList<>();
