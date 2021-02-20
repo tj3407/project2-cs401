@@ -5,11 +5,15 @@ import address.gui.event.TextChangeDocumentListener;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ *
+ * @author Tey Jon Sornet
+ * @since February 2021
+ */
 public class AddEntryForm extends JDialog {
     private String fName;
     private String lName;
@@ -38,6 +42,8 @@ public class AddEntryForm extends JDialog {
     private final JLabel phoneLabel = new JLabel("Phone ");
     private final JLabel emailLabel = new JLabel("Email ");
 
+    private JButton addBtn;
+
     public AddEntryForm() {
         setBounds(132, 132, 300, 500);
         Box container = Box.createVerticalBox();
@@ -61,7 +67,8 @@ public class AddEntryForm extends JDialog {
         add(container);
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
-        JButton addBtn = new JButton("Add");
+        addBtn = new JButton("Add");
+        addBtn.setEnabled(false);
         addBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,6 +85,7 @@ public class AddEntryForm extends JDialog {
                     @Override
                     public void update(DocumentEvent e) {
                         fName = firstName.getText();
+                        validateForm();
                     }
                 }
         );
@@ -87,6 +95,7 @@ public class AddEntryForm extends JDialog {
                     @Override
                     public void update(DocumentEvent e) {
                         lName = lastName.getText();
+                        validateForm();
                     }
                 }
         );
@@ -96,6 +105,7 @@ public class AddEntryForm extends JDialog {
                     @Override
                     public void update(DocumentEvent e) {
                         streetName = street.getText();
+                        validateForm();
                     }
                 }
         );
@@ -105,6 +115,7 @@ public class AddEntryForm extends JDialog {
                     @Override
                     public void update(DocumentEvent e) {
                         cityName = city.getText();
+                        validateForm();
                     }
                 }
         );
@@ -114,6 +125,7 @@ public class AddEntryForm extends JDialog {
                     @Override
                     public void update(DocumentEvent e) {
                         stateName = state.getText();
+                        validateForm();
                     }
                 }
         );
@@ -123,6 +135,7 @@ public class AddEntryForm extends JDialog {
                     @Override
                     public void update(DocumentEvent e) {
                         zipValue = Integer.parseInt(zip.getText());
+                        validateForm();
                     }
                 }
         );
@@ -132,6 +145,7 @@ public class AddEntryForm extends JDialog {
                     @Override
                     public void update(DocumentEvent e) {
                         phoneValue = phone.getText();
+                        validateForm();
                     }
                 }
         );
@@ -141,11 +155,27 @@ public class AddEntryForm extends JDialog {
                     @Override
                     public void update(DocumentEvent e) {
                         emailValue = email.getText();
+                        validateForm();
                     }
                 }
         );
 
         panel.add(addBtn);
         container.add(panel);
+    }
+
+    public void validateForm() {
+        if (fName == null || fName.isEmpty()
+                || lName == null || lName.isEmpty()
+                || streetName == null || streetName.isEmpty()
+                || cityName == null || cityName.isEmpty()
+                || stateName == null || stateName.isEmpty()
+                || zipValue == 0
+                || phoneValue == null || phoneValue.isEmpty()
+                || emailValue == null || emailValue.isEmpty()) {
+            addBtn.setEnabled(false);
+        } else {
+            addBtn.setEnabled(true);
+        }
     }
 }

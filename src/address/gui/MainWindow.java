@@ -16,6 +16,7 @@ public class MainWindow {
     protected static JList<AddressEntry> addressEntryJList;
     protected static DefaultListModel<AddressEntry> myAddressEntryListModel = new DefaultListModel<>();
     JButton btnRemove;
+    JButton btnAdd;
 
     /**
      * Launch the application
@@ -83,7 +84,7 @@ public class MainWindow {
         frame.setSize(780, 960);
 
         // create add button
-        JButton btnAdd = new JButton("Add New Entry");
+        btnAdd = new JButton("Add New Entry");
         frame.add(btnAdd);
 
         //create scrollPane associated with JList
