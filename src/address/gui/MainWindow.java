@@ -12,9 +12,9 @@ import java.util.Vector;
 
 public class MainWindow {
     private JFrame frame;
-    Vector<AddressEntry> addressEntryList = new Vector<>();
-    JList<AddressEntry> addressEntryJList;
-    DefaultListModel<AddressEntry> myAddressEntryListModel = new DefaultListModel<>();
+    protected static Vector<AddressEntry> addressEntryList = new Vector<>();
+    protected static JList<AddressEntry> addressEntryJList;
+    protected static DefaultListModel<AddressEntry> myAddressEntryListModel = new DefaultListModel<>();
     JButton btnRemove;
 
     /**

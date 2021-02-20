@@ -13,6 +13,7 @@ import java.util.stream.Stream;
  * Contains an list method to iterate through an ArrayList of AddressEntry
  *
  * @author Tey Jon Sornet
+ * @since February 2021
  */
 public class AddressBook {
     private ArrayList<AddressEntry> addressEntryList = new ArrayList<>();

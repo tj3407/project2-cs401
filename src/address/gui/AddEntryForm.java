@@ -1,5 +1,6 @@
 package address.gui;
 
+import address.data.AddressEntry;
 import address.gui.event.TextChangeDocumentListener;
 
 import javax.swing.*;
@@ -64,6 +65,10 @@ public class AddEntryForm extends JDialog {
         addBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int id = MainWindow.addressEntryList.size();
+                AddressEntry addressEntry = new AddressEntry(id, fName, lName, streetName, cityName, stateName, zipValue, phoneValue, emailValue);
+                MainWindow.addressEntryList.add(addressEntry);
+                MainWindow.myAddressEntryListModel.addElement(addressEntry);
                 setVisible(false);
             }
         });
