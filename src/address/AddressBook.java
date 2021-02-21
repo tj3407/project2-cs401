@@ -2,9 +2,7 @@ package address;
 
 import address.data.AddressEntry;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -16,8 +14,14 @@ import java.util.stream.Stream;
  * @since February 2021
  */
 public class AddressBook {
-    private ArrayList<AddressEntry> addressEntryList = new ArrayList<>();
+    /**
+     * ArrayList of AddressEntry which will be the Address Book
+     */
+    private Vector<AddressEntry> addressEntryList = new Vector<>();
 
+    /**
+     * Method to list all records of AddressBook
+     */
     public void list() {
         // Iterate through AddressEntry and print out the data
         for (int i = 1; i <= addressEntryList.size(); i++) {
@@ -26,24 +30,45 @@ public class AddressBook {
         }
     }
 
-    public void add(AddressEntry entry) {
-        entry.setId(addressEntryList.size());
-        addressEntryList.add(entry);
+    /**
+     * Method to add a single AddressEntry into AddressBook
+     * @param addressEntry AddressEntry object
+     * @return
+     */
+    public boolean add(AddressEntry addressEntry) {
+        addressEntry.setId(addressEntryList.size());
+        addressEntryList.add(addressEntry);
+        return false;
     }
 
+    /**
+     * Method to remove an AddressEntry from AddressBook
+     * @param entry AddressEntry object
+     */
     public void remove(AddressEntry entry) {
         addressEntryList.remove(entry);
     }
 
-    public ArrayList<AddressEntry> find(String startOf_lastName) {
+    /**
+     * Method to find collection of AddressEntry that matches a given last name
+     * @param startOf_lastName String of a user's last name
+     * @return collection of AddressEntry items matching last name
+     */
+    public Vector<AddressEntry> find(String startOf_lastName) {
+        // Iterate through all entries and check for matching last name (partial or full)
         Stream<AddressEntry> stream = addressEntryList.stream().filter(entry -> entry.getName().getLastName().contains(startOf_lastName));
-        ArrayList<AddressEntry> result = new ArrayList<>();
+        Vector<AddressEntry> result = new Vector<>(); // collection to be returned
 
+        // Add matching entries to collection
         stream.forEach(s -> result.add(s));
         return result;
     }
 
-    public ArrayList<AddressEntry> getAddressEntryList() {
+    /**
+     * Method to retrieve AddressBook
+     * @return
+     */
+    public Vector<AddressEntry> getAddressEntryList() {
         return addressEntryList;
     }
 }

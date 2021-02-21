@@ -3,6 +3,7 @@ package address;
 import address.data.AddressEntry;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Vector;
 
 /**
  * Creates a new instance of an AddressBook object and adds 2 AddressEntry with the given data
@@ -48,7 +49,7 @@ public class AddressBookApplication {
         System.out.println("Enter in all or the beginning of the Last Name of the contact you wish to find:");
         System.out.print("> ");
         String lastName = input.nextLine();
-        ArrayList<AddressEntry> result = ab.find(lastName);
+        Vector<AddressEntry> result = ab.find(lastName);
 
         if (result.size() > 0) {
             System.out.println("The following " + result.size() + " entries were found in the address book for a last name starting with " + lastName);
@@ -67,7 +68,7 @@ public class AddressBookApplication {
         System.out.println("Enter in Last Name of contact to remove:");
         System.out.print("> ");
         String lastName = input.nextLine();
-        ArrayList<AddressEntry> result = ab.find(lastName);
+        Vector<AddressEntry> result = ab.find(lastName);
 
         if (result.size() <= 0) {
             System.out.println("No entries found");
