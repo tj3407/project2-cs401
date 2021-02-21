@@ -4,6 +4,11 @@ import address.AddressBook;
 import address.data.AddressEntry;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -19,11 +24,19 @@ public class ContactScrollPane extends JFrame {
     /**
      * Create AddressBook instance
      */
-    AddressBook addressBook = new AddressBook();
+    protected static AddressBook addressBook = new AddressBook();
+    protected static DefaultListModel<AddressEntry> myAddressEntryListModel = new DefaultListModel<>();
+    protected static JList<AddressEntry> addressEntryJList;
+    protected static JPanel contactScrollPanel;
+    JButton btnRemove;
+    JButton btnAdd;
+    JScrollPane scrollPane;
+    JPanel buttonPanel;
 
     public ContactScrollPane() {
         // Read data from file and add to AddressBook
         init("../../../AddressInputDataFile2.txt");
+        initialize();
     }
 
     /**
@@ -57,5 +70,75 @@ public class ContactScrollPane extends JFrame {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void initialize() {
+        contactScrollPanel = new JPanel();
+        myAddressEntryListModel.addAll(addressBook.getAddressEntryList());
+        addressEntryJList = new JList<>(myAddressEntryListModel);
+
+        this.addressEntryJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        this.addressEntryJList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        this.addressEntryJList.setVisibleRowCount(-1);
+        this.addressEntryJList.addListSelectionListener(
+                new ListSelectionListener() {
+                    // If one of the list is selected, enable Remove button
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        if (addressEntryJList.isSelectionEmpty()) {
+                            btnRemove.setEnabled(false);
+                        } else {
+                            btnRemove.setEnabled(true);
+                        }
+                    }
+                }
+        );
+
+        // Create add  and remove button which will be in BorderLayout.EAST
+        buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        btnAdd = new JButton("New");
+        btnRemove = new JButton("Remove");
+        btnRemove.setEnabled(false);
+
+        buttonPanel.add(btnAdd);
+        buttonPanel.add(btnRemove);
+
+        // Create scrollPane associated with JList which will be in BorderLayout.CENTER
+        scrollPane = new JScrollPane(this.addressEntryJList);
+        scrollPane.setPreferredSize(new Dimension(600, 200));
+
+        contactScrollPanel.add(scrollPane);
+        contactScrollPanel.add(buttonPanel);
+        contactScrollPanel.setVisible(false);
+
+        // Event listener for Remove button
+        btnRemove.addActionListener(new ActionListener() {
+            // BASED ON event from hitting remove button,
+            // Remove item from our JList's ListModel
+            public void actionPerformed(ActionEvent arg0) {
+                int index = addressEntryJList.getSelectedIndex();
+
+                //something is selected otherwise do nothing
+                if (index != -1) {
+                    // Retrieve the DefaultListModel associated
+                    // with our JList and remove from it the AddressEntry at this index
+                    ((DefaultListModel<AddressEntry>) (addressEntryJList.getModel())).remove(index);
+
+                    // NOTE in your project 2 you will also remove it from your AddressBook.addressEntryList
+                    // AND ALSO remove it from the associated database table
+                }
+            }
+        });
+
+        // Event listener for Add button
+        btnAdd.addActionListener(new ActionListener() {
+            // BASED ON event from hitting add button,
+            // Add item to our JList's ListModel
+            public void actionPerformed(ActionEvent event) {
+                AddEntryForm addEntryForm = new AddEntryForm();
+                addEntryForm.setVisible(true);
+            }
+        });
     }
 }

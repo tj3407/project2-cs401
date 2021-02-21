@@ -161,10 +161,10 @@ public class AddEntryForm extends JDialog {
         addBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int id = AddressBookApplicationGUI.contactScrollPane.addressBook.getAddressEntryList().size();
+                int id = ContactScrollPane.addressBook.getAddressEntryList().size();
                 AddressEntry addressEntry = new AddressEntry(id, fName, lName, streetName, cityName, stateName, zipValue, phoneValue, emailValue);
-                AddressBookApplicationGUI.contactScrollPane.addressBook.getAddressEntryList().add(addressEntry);
-                AddressBookApplicationGUI.myAddressEntryListModel.addElement(addressEntry);
+                ContactScrollPane.addressBook.getAddressEntryList().add(addressEntry);
+                ContactScrollPane.myAddressEntryListModel.addElement(addressEntry);
                 setVisible(false);
             }
         });
