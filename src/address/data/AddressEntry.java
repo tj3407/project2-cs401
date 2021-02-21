@@ -63,5 +63,7 @@ public class AddressEntry {
     public Name getName() {
         return name;
     }
+
+    public Address getAddress() { return address; }
 }
 

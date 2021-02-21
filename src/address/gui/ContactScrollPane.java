@@ -30,6 +30,7 @@ public class ContactScrollPane extends JFrame {
     protected static JPanel contactScrollPanel;
     JButton btnRemove;
     JButton btnAdd;
+    JButton btnUpdate;
     JScrollPane scrollPane;
     JPanel buttonPanel;
 
@@ -95,13 +96,15 @@ public class ContactScrollPane extends JFrame {
         );
 
         contactScrollPanel.setLayout(new BoxLayout(contactScrollPanel, BoxLayout.Y_AXIS));
-        // Create add  and remove button which will be in BorderLayout.EAST
+        // Create add, remove and update button which will be in BorderLayout.EAST
         buttonPanel = new JPanel();
         btnAdd = new JButton("New");
+        btnUpdate = new JButton("Update");
         btnRemove = new JButton("Remove");
         btnRemove.setEnabled(false);
 
         buttonPanel.add(btnAdd);
+        buttonPanel.add(btnUpdate);
         buttonPanel.add(btnRemove);
 
         // Create scrollPane associated with JList which will be in BorderLayout.CENTER
@@ -140,6 +143,26 @@ public class ContactScrollPane extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 AddEntryForm addEntryForm = new AddEntryForm();
                 addEntryForm.setVisible(true);
+            }
+        });
+
+        // Event listener for Update button
+        btnUpdate.addActionListener(new ActionListener() {
+            // BASED ON event from hitting add button,
+            // Add item to our JList's ListModel
+            public void actionPerformed(ActionEvent event) {
+                int index = addressEntryJList.getSelectedIndex();
+
+                //something is selected otherwise do nothing
+                if (index != -1) {
+                    // Retrieve the DefaultListModel associated
+                    // with our JList and open AddEntryForm GUI with
+                    // selected entry. Them remove entry from list
+                    AddEntryForm addEntryForm = new AddEntryForm(addressEntryJList.getModel().getElementAt(index));
+                    addEntryForm.setVisible(true);
+                    addEntryForm.addBtn.setText("Update");
+                    ((DefaultListModel<AddressEntry>) (addressEntryJList.getModel())).remove(index);
+                }
             }
         });
     }

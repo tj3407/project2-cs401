@@ -118,7 +118,7 @@ public class AddEntryForm extends JDialog {
     /**
      * Button to add an entry
      */
-    private JButton addBtn;
+    protected JButton addBtn;
 
     /**
      * Class constructor
@@ -127,6 +127,38 @@ public class AddEntryForm extends JDialog {
      * button
      */
     public AddEntryForm() {
+        initialize();
+    }
+
+    public AddEntryForm(AddressEntry addressEntry) {
+        fName = addressEntry.getName().getFirstName();
+        firstName.setText(fName);
+
+        lName = addressEntry.getName().getLastName();
+        lastName.setText(lName);
+
+        streetName = addressEntry.getAddress().getStreet();
+        street.setText(streetName);
+
+        cityName = addressEntry.getAddress().getCity();
+        city.setText(cityName);
+
+        stateName = addressEntry.getAddress().getState();
+        state.setText(stateName);
+
+        zipValue = addressEntry.getAddress().getZip();
+        zip.setText(Integer.toString(zipValue));
+
+        phoneValue = addressEntry.getPhone();
+        phone.setText(phoneValue);
+
+        emailValue = addressEntry.getEmail();
+        email.setText(emailValue);
+
+        initialize();
+    }
+
+    public void initialize() {
         // Create container to hold text fields and labels
         setBounds(132, 132, 300, 500);
         Box container = Box.createVerticalBox();
