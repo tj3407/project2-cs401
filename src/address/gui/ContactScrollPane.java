@@ -35,7 +35,7 @@ public class ContactScrollPane extends JFrame {
 
     public ContactScrollPane() {
         // Read data from file and add to AddressBook
-        init("../../../AddressInputDataFile2.txt");
+        init("./AddressInputDataFile1.txt");
         initialize();
     }
 
@@ -94,9 +94,9 @@ public class ContactScrollPane extends JFrame {
                 }
         );
 
+        contactScrollPanel.setLayout(new BoxLayout(contactScrollPanel, BoxLayout.Y_AXIS));
         // Create add  and remove button which will be in BorderLayout.EAST
         buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         btnAdd = new JButton("New");
         btnRemove = new JButton("Remove");
         btnRemove.setEnabled(false);
@@ -105,10 +105,12 @@ public class ContactScrollPane extends JFrame {
         buttonPanel.add(btnRemove);
 
         // Create scrollPane associated with JList which will be in BorderLayout.CENTER
+        JPanel scrollPanel = new JPanel();
         scrollPane = new JScrollPane(this.addressEntryJList);
         scrollPane.setPreferredSize(new Dimension(600, 200));
+        scrollPanel.add(scrollPane);
 
-        contactScrollPanel.add(scrollPane);
+        contactScrollPanel.add(scrollPanel);
         contactScrollPanel.add(buttonPanel);
         contactScrollPanel.setVisible(false);
 

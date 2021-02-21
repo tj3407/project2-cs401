@@ -1,0 +1,40 @@
+John
+Doe
+123 3rd Ave
+Hayward
+Ca
+28666
+510-885-4167
+lynne.grewe@csueastbay.edu
+Greg
+Butler
+Bay Avenue
+Capitoal
+Ca
+99999
+415-389-1239
+bg@gmail.com
+Joe
+Schmoe
+5th St
+New York
+Ny
+99999
+415-232-2324
+js@gmail.com
+Kim
+Chiu
+Mission Blvd
+Orlando
+Fl
+23232
+121-134-5454
+bg@gmail.com
+Gretchen
+May
+Cardinal St
+St Louis
+Mo
+56565
+565-343-2323
+gm@gmail.com

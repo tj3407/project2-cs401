@@ -1,10 +1,6 @@
 package address.gui;
 
-import address.data.AddressEntry;
-
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +8,7 @@ import java.awt.event.ActionListener;
 public class AddressBookApplicationGUI {
     private JFrame frame;
     protected static ContactScrollPane contactScrollPane = new ContactScrollPane();
+    protected static FindEntryPanel findEntryPanel = new FindEntryPanel();
     JButton btnDisplay;
     JPanel displayButtonField;
 
@@ -41,7 +38,7 @@ public class AddressBookApplicationGUI {
         frame.setLayout(new BorderLayout(20, 20));
         frame.setBounds(100, 100, 450, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(780, 960);
+        frame.setSize(780, 600);
 
         // Create display button which will be in BorderLayout.NORTH
         displayButtonField = new JPanel();
@@ -50,7 +47,8 @@ public class AddressBookApplicationGUI {
         frame.add(displayButtonField, BorderLayout.NORTH);
 
         frame.add(contactScrollPane.contactScrollPanel, BorderLayout.CENTER);
-//        frame.getContentPane().add(contactScrollPane.contactScrollPanel, BorderLayout.CENTER);
+
+        frame.add(findEntryPanel.findPanel, BorderLayout.SOUTH);
 
         // Event listener for Display button
         btnDisplay.addActionListener(new ActionListener() {
@@ -58,6 +56,7 @@ public class AddressBookApplicationGUI {
             // Display contact list
             public void actionPerformed(ActionEvent event) {
                 contactScrollPane.contactScrollPanel.setVisible(true);
+                findEntryPanel.findPanel.setVisible(true);
             }
         });
     }
