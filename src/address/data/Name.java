@@ -1,5 +1,10 @@
 package address.data;
 
+/**
+ * Class to set a Name object with user's first and last name
+ * @author Tey Jon Sornet
+ * @since February 2021
+ */
 public class Name {
     private String firstName;
     private String lastName;

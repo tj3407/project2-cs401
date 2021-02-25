@@ -5,11 +5,38 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * GUI class that creates the main Address Book application
+ *
+ * @author Tey Jon Sornet
+ * @since February 2021
+ * @version 1.0
+ */
 public class AddressBookApplicationGUI {
+    /**
+     * JFrame object which is the main parent container
+     */
     private JFrame frame;
+
+    /**
+     * ContactScrollPane object which holds the scrollpane and add, remove
+     * and update buttons
+     */
     protected static ContactScrollPane contactScrollPane = new ContactScrollPane();
+
+    /**
+     * FindEntryPanel object which holds the search field and results scrollpane
+     */
     protected static FindEntryPanel findEntryPanel = new FindEntryPanel();
+
+    /**
+     * JButton object for display button
+     */
     JButton btnDisplay;
+
+    /**
+     * JPanel object which holds the display button
+     */
     JPanel displayButtonField;
 
     /**
@@ -20,6 +47,7 @@ public class AddressBookApplicationGUI {
             @Override
             public void run() {
                 try {
+                    // Create an AddressBookApplicationGUI instance and make it visible
                     AddressBookApplicationGUI window = new AddressBookApplicationGUI();
                     window.frame.setVisible(true);
                 } catch (Exception e) {
@@ -30,7 +58,7 @@ public class AddressBookApplicationGUI {
     }
 
     /**
-     * Create the application
+     * Constructor which creates the main application
      */
     public AddressBookApplicationGUI() {
         // Set up main frame component using BorderLayout

@@ -3,6 +3,8 @@ package address.data;
 /**
  * Represents a single object entry in the AddressBook class
  * Overrides a toString() method that prints out all the data in an entry
+ * @author Tey Jon Sornet
+ * @since February 2021
  */
 public class AddressEntry {
     /**

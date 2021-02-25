@@ -130,6 +130,12 @@ public class AddEntryForm extends JDialog {
         initialize();
     }
 
+    /**
+     * Class constructor which takes in an AddressEntry object
+     * Creates a new container for the add entry form and adds the text fields
+     * and labels. Also adds event listeners for the text fields and the Add
+     * button
+     */
     public AddEntryForm(AddressEntry addressEntry) {
         fName = addressEntry.getName().getFirstName();
         firstName.setText(fName);
@@ -158,6 +164,10 @@ public class AddEntryForm extends JDialog {
         initialize();
     }
 
+    /**
+     * Method that creates a container to hold the Address entry form
+     * and attaches event listeners to the text fields and buttons
+     */
     public void initialize() {
         // Create container to hold text fields and labels
         setBounds(132, 132, 300, 500);
