@@ -56,11 +56,12 @@ public class AddressBook {
      */
     public Vector<AddressEntry> find(String startOf_lastName) {
         // Iterate through all entries and check for matching last name (partial or full)
-        Stream<AddressEntry> stream = addressEntryList.stream().filter(entry -> entry.getName().getLastName().contains(startOf_lastName));
+        Stream<AddressEntry> stream = addressEntryList.stream().filter(entry -> entry.getName().getLastName().toLowerCase().startsWith(startOf_lastName.toLowerCase()));
         Vector<AddressEntry> result = new Vector<>(); // collection to be returned
 
         // Add matching entries to collection
         stream.forEach(s -> result.add(s));
+        result.sort(Comparator.comparing(AddressEntry::getLastName));
         return result;
     }
 
@@ -69,6 +70,7 @@ public class AddressBook {
      * @return
      */
     public Vector<AddressEntry> getAddressEntryList() {
+        addressEntryList.sort(Comparator.comparing(AddressEntry::getLastName));
         return addressEntryList;
     }
 }
