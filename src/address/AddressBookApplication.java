@@ -10,6 +10,10 @@ import java.util.Vector;
  * then lists the entries in the output
  */
 public class AddressBookApplication {
+    /**
+     * Method that runs the main application
+     * @param args String collection
+     */
     public static void main(String[] args) {
         // Create an instance of AddressBook
         AddressBook ab = new AddressBook();

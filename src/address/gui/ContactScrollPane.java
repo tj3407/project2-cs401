@@ -4,8 +4,6 @@ import address.AddressBook;
 import address.data.AddressEntry;
 
 import javax.swing.*;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
@@ -27,15 +25,51 @@ public class ContactScrollPane extends JFrame {
      * Create AddressBook instance
      */
     protected static AddressBook addressBook = new AddressBook();
+
+    /**
+     * Create DefaultListModel instance
+     */
     protected static DefaultListModel<AddressEntry> myAddressEntryListModel = new DefaultListModel<>();
+
+    /**
+     * Create a JList instance for the scroll pane
+     */
     protected static JList<AddressEntry> addressEntryJList;
+
+    /**
+     * JPanel object which holds the scrollpane
+     */
     protected static JPanel contactScrollPanel;
+
+    /**
+     * Remove button
+     */
     JButton btnRemove;
+
+    /**
+     * Add button
+     */
     JButton btnAdd;
+
+    /**
+     * Update button
+     */
     JButton btnUpdate;
+
+    /**
+     * JScrollPane object which will hold the AddressBook entries
+     */
     JScrollPane scrollPane;
+
+    /**
+     * JPanel object which holds the add, remove and update buttons
+     */
     JPanel buttonPanel;
 
+    /**
+     * Constructor to read AddressEntry entries into application and
+     * initializes the application
+     */
     public ContactScrollPane() {
         // Read data from file and add to AddressBook
         init("./AddressInputDataFile1.txt");
@@ -75,19 +109,34 @@ public class ContactScrollPane extends JFrame {
         }
     }
 
+    /**
+     * Method that creates the Contact scroll window section which also
+     * include the add, remove and update buttons
+     */
     public void initialize() {
+        // Create a new instance of JPanel which will be the parent container
         contactScrollPanel = new JPanel();
+
+        // Add all AddressEntry entries into a ListModel
         myAddressEntryListModel.addAll(addressBook.getAddressEntryList());
+
+        // Create a JList object from the ListModel
         addressEntryJList = new JList<>(myAddressEntryListModel);
 
+        // Only allow single selection in the scrollpane
         this.addressEntryJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         this.addressEntryJList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
         this.addressEntryJList.setVisibleRowCount(-1);
+
+        // Add event listener for scrollpane to detect if a selection is made
         this.addressEntryJList.addListSelectionListener(
                 new ListSelectionListener() {
                     // If one of the list is selected, enable Remove button
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
+                        // Enable remove and update buttons if
+                        // something is selected. Otherwise, keep buttons
+                        // disabled
                         if (addressEntryJList.isSelectionEmpty()) {
                             btnRemove.setEnabled(false);
                             btnUpdate.setEnabled(false);
@@ -99,8 +148,11 @@ public class ContactScrollPane extends JFrame {
                 }
         );
 
+        // Set the layout of the main container
         contactScrollPanel.setLayout(new BoxLayout(contactScrollPanel, BoxLayout.Y_AXIS));
-        // Create add, remove and update button which will be in BorderLayout.EAST
+
+        // Create add, remove and update button and put it
+        // in a buttonPanel container
         buttonPanel = new JPanel();
         btnAdd = new JButton("New");
         btnUpdate = new JButton("Update");
@@ -112,12 +164,13 @@ public class ContactScrollPane extends JFrame {
         buttonPanel.add(btnUpdate);
         buttonPanel.add(btnRemove);
 
-        // Create scrollPane associated with JList which will be in BorderLayout.CENTER
+        // Create scrollpane associated with JList
         JPanel scrollPanel = new JPanel();
         scrollPane = new JScrollPane(this.addressEntryJList);
         scrollPane.setPreferredSize(new Dimension(600, 200));
         scrollPanel.add(scrollPane);
 
+        // Add scrollpane and button panel to main container
         contactScrollPanel.add(scrollPanel);
         contactScrollPanel.add(buttonPanel);
         contactScrollPanel.setVisible(false);
