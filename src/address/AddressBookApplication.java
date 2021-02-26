@@ -8,6 +8,8 @@ import java.util.Vector;
 /**
  * Creates a new instance of an AddressBook object and adds 2 AddressEntry with the given data
  * then lists the entries in the output
+ * @author Tey Jon Sornet
+ * @since February 2021
  */
 public class AddressBookApplication {
     /**
@@ -48,6 +50,10 @@ public class AddressBookApplication {
         }
     }
 
+    /**
+     * Method to find an entry in AddressBook
+     * @param ab AddressBook instance
+     */
     private static void findEntry(AddressBook ab) {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter in all or the beginning of the Last Name of the contact you wish to find:");
@@ -65,6 +71,10 @@ public class AddressBookApplication {
         }
     }
 
+    /**
+     * Method to remove an entry from AddressBook
+     * @param ab AddressBook instance
+     */
     private static void removeEntry(AddressBook ab) {
         Scanner input = new Scanner(System.in);
         int selection;
@@ -108,6 +118,10 @@ public class AddressBookApplication {
         }
     }
 
+    /**
+     * Method to add an entry to Address Book
+     * @param ab AddressBook instance
+     */
     private static void addEntry(AddressBook ab) {
         AddressEntry entry;
         String firstName;
