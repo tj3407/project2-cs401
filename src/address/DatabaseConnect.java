@@ -21,12 +21,9 @@ public class DatabaseConnect {
         while (rset.next()) {
             // Visit each column
             for (int i = 1; i <= rset.getMetaData().getColumnCount(); i++) {
-                if (i == 1) {
-                    System.out.println(rset.getString(i) + ":");
-                } else {
-                    System.out.println(rset.getString(i));
-                }
+                System.out.print(rset.getString(i) + " | ");
             }
+            System.out.println("");
             System.out.println("************************");
         }
 
