@@ -1,15 +1,15 @@
 John
-Doe
+Doejoe
 123 3rd Ave
 Hayward
 Ca
 28666
 510-885-4167
-lynne.grewe@csueastbay.edu
+john.doejoe@csueastbay.edu
 Greg
 Butler
 Bay Avenue
-Capitoal
+Capitola
 Ca
 99999
 415-389-1239
@@ -23,7 +23,7 @@ Ny
 415-232-2324
 js@gmail.com
 Kim
-Chiu
+Chestnut
 Mission Blvd
 Orlando
 Fl

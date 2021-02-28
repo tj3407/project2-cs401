@@ -14,14 +14,14 @@ public class DatabaseConnect {
         Statement stmt = conn.createStatement();
 
         // Select ALL from ADDRESS_ENTRIES_TABLE
-        ResultSet rset = stmt.executeQuery("SELECT * FROM ADDRESS_ENTRIES_TABLE");
+        ResultSet rset = stmt.executeQuery("SELECT * FROM ADDRESSENTRYTABLE");
         System.out.println(rset);
 
         // Iterate through result and print employee names
         while (rset.next()) {
             // Visit each column
             for (int i = 1; i <= rset.getMetaData().getColumnCount(); i++) {
-                System.out.print(rset.getString(i) + " | ");
+                System.out.print(rset.getString(i).trim() + " | ");
             }
             System.out.println("");
             System.out.println("************************");

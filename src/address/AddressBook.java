@@ -2,6 +2,7 @@ package address;
 
 import address.data.AddressEntry;
 
+import java.sql.*;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -36,7 +37,27 @@ public class AddressBook {
      * @return
      */
     public boolean add(AddressEntry addressEntry) {
-        addressEntry.setId(addressEntryList.size());
+        try {
+            // Load Oracle JDBC Driver
+            Class.forName("oracle.jdbc.OracleDriver");
+
+            // Connect to database
+            Connection conn = DriverManager.getConnection("jdbc:oracle:thin:mcs1028/bPiR8jKZ@adcsdb01.csueastbay.edu:1521/mcspdb.ad.csueastbay.edu");
+
+            // Create a statement
+            Statement statement = conn.createStatement();
+
+            // Insert new entry to ADDRESSENTRYTABLE
+            statement.executeUpdate(new StringBuilder().append("INSERT INTO ADDRESSENTRYTABLE ").append("VALUES(").append(addressEntry.getId().toString()).append(", '").append(addressEntry.getName().getFirstName()).append("', '").append(addressEntry.getName().getLastName()).append("', '").append(addressEntry.getAddress().getStreet()).append("', '").append(addressEntry.getAddress().getCity()).append("', '").append(addressEntry.getAddress().getState()).append("',").append(addressEntry.getAddress().getZip().toString()).append(",'").append(addressEntry.getPhone()).append("', '").append(addressEntry.getEmail()).append("')").toString());
+            statement.close();
+            conn.close();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         addressEntryList.add(addressEntry);
         return false;
     }
@@ -46,6 +67,24 @@ public class AddressBook {
      * @param entry AddressEntry object
      */
     public void remove(AddressEntry entry) {
+        try {
+            // Load Oracle JDBC Driver
+            Class.forName("oracle.jdbc.OracleDriver");
+
+            // Connect to database
+            Connection conn = DriverManager.getConnection("jdbc:oracle:thin:mcs1028/bPiR8jKZ@adcsdb01.csueastbay.edu:1521/mcspdb.ad.csueastbay.edu");
+
+            // Create a statement
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM ADDRESSENTRYTABLE WHERE ID=" + entry.getId());
+
+            statement.close();
+            conn.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         addressEntryList.remove(entry);
     }
 

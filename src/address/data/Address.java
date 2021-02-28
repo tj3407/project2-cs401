@@ -100,7 +100,7 @@ public class Address {
      * Method to get zip code
      * @return integer containing zip code
      */
-    public int getZip() {
+    public Integer getZip() {
         return zip;
     }
 

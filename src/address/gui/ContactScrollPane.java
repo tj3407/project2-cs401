@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -71,9 +72,51 @@ public class ContactScrollPane extends JFrame {
      * initializes the application
      */
     public ContactScrollPane() {
-        // Read data from file and add to AddressBook
-        init("./AddressInputDataFile1.txt");
-        initialize();
+        try {
+            // Read data from file and add to AddressBook
+            // init("./AddressInputDataFile1.txt");
+
+            loadFromDB();
+            initialize();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void loadFromDB() throws ClassNotFoundException, SQLException {
+        // Load Oracle JDBC Driver
+        Class.forName("oracle.jdbc.OracleDriver");
+
+        // Connect to database
+        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:mcs1028/bPiR8jKZ@adcsdb01.csueastbay.edu:1521/mcspdb.ad.csueastbay.edu");
+
+        // Create a statement
+        Statement stmt = conn.createStatement();
+
+        // Select ALL from ADDRESSENTRYTABLE
+        ResultSet resultSet = stmt.executeQuery("SELECT * FROM ADDRESSENTRYTABLE");
+
+        // Iterate through result and print employee names
+        while (resultSet.next()) {
+            // Collection to add data from table row
+            ArrayList<String> data = new ArrayList();
+
+            // Visit each column and add to collection
+            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                data.add(resultSet.getString(i));
+            }
+
+            // Parse collection and create new AddressEntry and add to AddressBook
+            AddressEntry addressEntry = new AddressEntry(Integer.parseInt(data.get(0)), data.get(1).trim(), data.get(2).trim(), data.get(3).trim(), data.get(4).trim(), data.get(5).trim(), Integer.parseInt(data.get(6)), data.get(7).trim(), data.get(8).trim());
+            addressBook.getAddressEntryList().add(addressEntry);
+        }
+
+        // Close access to everything
+        resultSet.close();
+        stmt.close();
+        conn.close();
     }
 
     /**
@@ -88,20 +131,14 @@ public class ContactScrollPane extends JFrame {
             // Create instance of File
             File file = new File(filename);
             Scanner input = new Scanner(file);
-            int count = 0;
-            ArrayList info = new ArrayList();
 
             // Iterate through txt file
             while (input.hasNextLine()) {
-                while (count < 8) {
-                    info.add(input.nextLine());
-                    count++;
-                }
-                count = 0;
+                int id = addressBook.getAddressEntryList().size() + 1;
+
                 // Create AddressEntry instance then add to AddressBook instance
-                AddressEntry entry = new AddressEntry(count, info.get(0).toString(), info.get(1).toString(), info.get(2).toString(), info.get(3).toString(), info.get(4).toString(), Integer.parseInt(info.get(5).toString()), info.get(6).toString(), info.get(7).toString());
+                AddressEntry entry = new AddressEntry(id, input.nextLine(), input.nextLine(), input.nextLine(), input.nextLine(), input.nextLine(), Integer.parseInt(input.nextLine()), input.nextLine(), input.nextLine());
                 addressBook.add(entry);
-                info = new ArrayList();
             }
             input.close();
         } catch (FileNotFoundException e) {
@@ -124,12 +161,12 @@ public class ContactScrollPane extends JFrame {
         addressEntryJList = new JList<>(myAddressEntryListModel);
 
         // Only allow single selection in the scrollpane
-        this.addressEntryJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        this.addressEntryJList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-        this.addressEntryJList.setVisibleRowCount(-1);
+        addressEntryJList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        addressEntryJList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        addressEntryJList.setVisibleRowCount(-1);
 
         // Add event listener for scrollpane to detect if a selection is made
-        this.addressEntryJList.addListSelectionListener(
+        addressEntryJList.addListSelectionListener(
                 new ListSelectionListener() {
                     // If one of the list is selected, enable Remove button
                     @Override
@@ -190,6 +227,7 @@ public class ContactScrollPane extends JFrame {
 
                     // NOTE in your project 2 you will also remove it from your AddressBook.addressEntryList
                     // AND ALSO remove it from the associated database table
+                    addressBook.remove(addressBook.getAddressEntryList().get(index));
                 }
             }
         });
@@ -220,6 +258,8 @@ public class ContactScrollPane extends JFrame {
                     addEntryForm.setVisible(true);
                     addEntryForm.addBtn.setText("Update");
                     ((DefaultListModel<AddressEntry>) (addressEntryJList.getModel())).remove(indexToUpdate);
+
+                    addressBook.remove(addressBook.getAddressEntryList().get(indexToUpdate));
                 }
             }
         });
