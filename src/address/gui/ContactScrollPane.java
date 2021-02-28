@@ -85,6 +85,11 @@ public class ContactScrollPane extends JFrame {
         }
     }
 
+    /**
+     * Method to load data from database
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public void loadFromDB() throws ClassNotFoundException, SQLException {
         // Load Oracle JDBC Driver
         Class.forName("oracle.jdbc.OracleDriver");
