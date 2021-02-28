@@ -45,27 +45,27 @@ public class ContactScrollPane extends JFrame {
     /**
      * Remove button
      */
-    JButton btnRemove;
+    private static JButton btnRemove;
 
     /**
      * Add button
      */
-    JButton btnAdd;
+    private static JButton btnAdd;
 
     /**
      * Update button
      */
-    JButton btnUpdate;
+    private static JButton btnUpdate;
 
     /**
      * JScrollPane object which will hold the AddressBook entries
      */
-    JScrollPane scrollPane;
+    private static JScrollPane scrollPane;
 
     /**
      * JPanel object which holds the add, remove and update buttons
      */
-    JPanel buttonPanel;
+    private static JPanel buttonPanel;
 
     /**
      * Constructor to read AddressEntry entries into application and
@@ -118,6 +118,8 @@ public class ContactScrollPane extends JFrame {
             addressBook.getAddressEntryList().add(addressEntry);
         }
 
+        addressBook.list();
+
         // Close access to everything
         resultSet.close();
         stmt.close();
@@ -155,7 +157,7 @@ public class ContactScrollPane extends JFrame {
      * Method that creates the Contact scroll window section which also
      * include the add, remove and update buttons
      */
-    public void initialize() {
+    public static void initialize() {
         // Create a new instance of JPanel which will be the parent container
         contactScrollPanel = new JPanel();
 
@@ -208,7 +210,7 @@ public class ContactScrollPane extends JFrame {
 
         // Create scrollpane associated with JList
         JPanel scrollPanel = new JPanel();
-        scrollPane = new JScrollPane(this.addressEntryJList);
+        scrollPane = new JScrollPane(addressEntryJList);
         scrollPane.setPreferredSize(new Dimension(600, 200));
         scrollPanel.add(scrollPane);
 
@@ -233,6 +235,7 @@ public class ContactScrollPane extends JFrame {
                     // NOTE in your project 2 you will also remove it from your AddressBook.addressEntryList
                     // AND ALSO remove it from the associated database table
                     addressBook.remove(addressBook.getAddressEntryList().get(index));
+                    addressBook.list();
                 }
             }
         });
@@ -265,6 +268,7 @@ public class ContactScrollPane extends JFrame {
                     ((DefaultListModel<AddressEntry>) (addressEntryJList.getModel())).remove(indexToUpdate);
 
                     addressBook.remove(addressBook.getAddressEntryList().get(indexToUpdate));
+                    addressBook.list();
                 }
             }
         });

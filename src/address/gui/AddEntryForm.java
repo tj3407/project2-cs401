@@ -207,7 +207,9 @@ public class AddEntryForm extends JDialog {
                 AddressEntry addressEntry = new AddressEntry(id, fName, lName, streetName, cityName, stateName, zipValue, phoneValue, emailValue);
 
                 ContactScrollPane.addressBook.add(addressEntry);
-                ContactScrollPane.myAddressEntryListModel.addElement(addressEntry);
+                ContactScrollPane.myAddressEntryListModel.removeAllElements();
+                ContactScrollPane.myAddressEntryListModel.addAll(ContactScrollPane.addressBook.getAddressEntryList());
+                ContactScrollPane.addressBook.list();
                 setVisible(false);
             }
         });

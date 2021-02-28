@@ -24,6 +24,7 @@ public class AddressBook {
      * Method to list all records of AddressBook
      */
     public void list() {
+        addressEntryList.sort(Comparator.comparing(AddressEntry::getLastName));
         // Iterate through AddressEntry and print out the data
         for (int i = 1; i <= addressEntryList.size(); i++) {
             System.out.print(i + ": ");
