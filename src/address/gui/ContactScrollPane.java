@@ -82,6 +82,8 @@ public class ContactScrollPane extends JFrame {
             e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -90,12 +92,19 @@ public class ContactScrollPane extends JFrame {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public void loadFromDB() throws ClassNotFoundException, SQLException {
+    public void loadFromDB() throws ClassNotFoundException, SQLException, FileNotFoundException {
         // Load Oracle JDBC Driver
         Class.forName("oracle.jdbc.OracleDriver");
 
+        // Retrieve jdbc credentials
+        String username, pwd;
+        File file = new File("credentials.txt");
+        Scanner input = new Scanner(file);
+        username = input.nextLine();
+        pwd = input.nextLine();
+
         // Connect to database
-        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:mcs1028/bPiR8jKZ@adcsdb01.csueastbay.edu:1521/mcspdb.ad.csueastbay.edu");
+        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:" + username + "/" + pwd + "@adcsdb01.csueastbay.edu:1521/mcspdb.ad.csueastbay.edu");
 
         // Create a statement
         Statement stmt = conn.createStatement();
