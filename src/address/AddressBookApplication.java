@@ -21,7 +21,7 @@ public class AddressBookApplication {
         AddressBook ab = new AddressBook();
 
         // Prompt for menu and retrieve selection
-        char selection = Menu.prompt_Menu();
+        char selection = Menu.prompt_Menu(System.in);
 
         while (selection != 'e') {
             switch(selection) {
@@ -42,7 +42,7 @@ public class AddressBookApplication {
                     break;
             }
 
-            selection = Menu.prompt_Menu();
+            selection = Menu.prompt_Menu(System.in);
         }
 
         if (selection == 'e') {
@@ -134,21 +134,21 @@ public class AddressBookApplication {
         String email;
         int id = ab.getAddressEntryList().size();
 
-        firstName = Menu.prompt_FirstName();
+        firstName = Menu.prompt_FirstName(System.in);
 
-        lastName = Menu.prompt_LastName();
+        lastName = Menu.prompt_LastName(System.in);
 
-        street = Menu.prompt_Street();
+        street = Menu.prompt_Street(System.in);
 
-        city = Menu.prompt_City();
+        city = Menu.prompt_City(System.in);
 
-        state = Menu.prompt_State();
+        state = Menu.prompt_State(System.in);
 
-        zip = Menu.prompt_Zip();
+        zip = Menu.prompt_Zip(System.in);
 
-        phone = Menu.prompt_Telephone();
+        phone = Menu.prompt_Telephone(System.in);
 
-        email = Menu.prompt_Email();
+        email = Menu.prompt_Email(System.in);
 
         entry = new AddressEntry(id, firstName, lastName, street, city, state, zip, phone, email);
 
