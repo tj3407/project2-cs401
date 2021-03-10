@@ -17,6 +17,11 @@ public class Name {
     private String lastName;
 
     /**
+     * Default constructor
+     */
+    public Name() {}
+
+    /**
      * Custom constructor initializing first and last name
      * @param firstName String first name
      * @param lastName String last name

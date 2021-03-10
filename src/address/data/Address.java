@@ -27,6 +27,11 @@ public class Address {
     private int zip;
 
     /**
+     * Default constructor
+     */
+    public Address() {}
+
+    /**
      * Custom constructor which takes in street, city, state and zip values
      * @param street String containing user's street name
      * @param city String containing user's city name
